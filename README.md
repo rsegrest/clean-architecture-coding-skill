@@ -31,7 +31,7 @@ match the skill name, `clean-architecture`.
 | :--- | :--- | :--- |
 | Claude Code | `~/.claude/skills/` | `.claude/skills/` |
 | Hermes Agent | `~/.hermes/skills/` | n/a (configure an external skills directory) |
-| Pi | `~/.pi/agent/skills/` | `.pi/skills/` (see note) |
+| Pi | `~/.pi/agent/skills/` or `~/.agents/skills/` (shared) | `.pi/skills/` or `.agents/skills/` (found by walking up to the repo root) |
 | OpenCode | `~/.config/opencode/skills/` (also reads `~/.claude/skills/` and `~/.agents/skills/`) | `.opencode/skills/` (also reads `.claude/skills/` and `.agents/skills/`) |
 | Google Antigravity CLI | `~/.gemini/config/skills/` | `.agents/skills/` |
 
@@ -42,10 +42,15 @@ git clone git@github.com:rsegrest/clean-architecture-coding-skill.git \
   ~/.claude/skills/clean-architecture
 ```
 
-> **Note:** Paths for Hermes Agent, Pi, and OpenCode come from their public
-> documentation and have not been tested with this skill. Pi's skill discovery
-> varies by setup. If it doesn't pick the skill up, check Pi's docs or symlink
-> the folder from a location Pi scans. If a path is wrong, please open an issue.
+Pi can also install straight from the Git repo:
+
+```bash
+pi install git:github.com/rsegrest/clean-architecture-coding-skill
+```
+
+> **Note:** The Hermes Agent and OpenCode paths come from their public
+> documentation and have not been tested with this skill. If a path is wrong,
+> please open an issue.
 
 To share one copy across agents, clone once and symlink:
 
