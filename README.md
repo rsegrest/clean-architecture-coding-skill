@@ -5,8 +5,8 @@ or restructuring existing ones. It is built on the principles of
 [falsy/react-with-clean-architecture](https://github.com/falsy/react-with-clean-architecture)
 and generalized beyond React.
 
-It works with Google Antigravity (`agy`) and any other agent that supports the
-`SKILL.md` skill format.
+It works with Claude Code, Hermes Agent, Pi, OpenCode, Google Antigravity CLI,
+and any other agent that supports the `SKILL.md` skill format.
 
 ## What it does
 
