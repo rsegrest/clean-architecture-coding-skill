@@ -24,14 +24,34 @@ import UI, database, HTTP, or framework code.
 
 ## Install
 
-Clone into your global skills folder:
+Clone the repo into your agent's global skills folder. The folder name should
+match the skill name, `clean-architecture`.
+
+| Agent | Global skills folder | Project-level folder |
+| :--- | :--- | :--- |
+| Claude Code | `~/.claude/skills/` | `.claude/skills/` |
+| Hermes Agent | `~/.hermes/skills/` | n/a (configure an external skills directory) |
+| Pi | `~/.pi/agent/skills/` | `.pi/skills/` (see note) |
+| OpenCode | `~/.config/opencode/skills/` (also reads `~/.claude/skills/` and `~/.agents/skills/`) | `.opencode/skills/` (also reads `.claude/skills/` and `.agents/skills/`) |
+| Google Antigravity CLI | `~/.gemini/config/skills/` | `.agents/skills/` |
+
+Example (Claude Code):
 
 ```bash
 git clone git@github.com:rsegrest/clean-architecture-coding-skill.git \
-  ~/.gemini/config/skills/clean-architecture
+  ~/.claude/skills/clean-architecture
 ```
 
-Or add it to a single project by cloning into `<project>/.agents/skills/clean-architecture`.
+> **Note:** Paths for Hermes Agent, Pi, and OpenCode come from their public
+> documentation and have not been tested with this skill. Pi's skill discovery
+> varies by setup. If it doesn't pick the skill up, check Pi's docs or symlink
+> the folder from a location Pi scans. If a path is wrong, please open an issue.
+
+To share one copy across agents, clone once and symlink:
+
+```bash
+ln -s ~/.claude/skills/clean-architecture ~/.hermes/skills/clean-architecture
+```
 
 The agent loads the skill automatically when a request matches, for example
 "restructure this app using clean architecture" or "separate the business logic
