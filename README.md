@@ -1,31 +1,54 @@
-# Clean Architecture Coding Skill
+# Clean Code Skill
 
-An agent skill that applies **Clean Architecture** when scaffolding new projects
-or restructuring existing ones. It is built on the principles of
-[falsy/react-with-clean-architecture](https://github.com/falsy/react-with-clean-architecture)
-and generalized beyond React.
+An agent skill that applies **Robert C. Martin's Clean Code and Clean Architecture
+principles** when writing, reviewing, refactoring, scaffolding, or restructuring
+code, in TypeScript, Python, Go, Java/Kotlin, C#/.NET, and Rust (with a pattern for
+adding others).
 
-It works with Claude Code, Hermes Agent, Pi, OpenCode, Google Antigravity CLI,
-and any other agent that supports the `SKILL.md` skill format.
+It works with Claude Code, Hermes Agent, Pi, OpenCode, Google Antigravity CLI, and
+any other agent that supports the `SKILL.md` skill format.
+
+## Sources
+
+The skill summarizes, in its own words, principles from Robert C. Martin's:
+
+- *Clean Code: A Handbook of Agile Software Craftsmanship* (2008; 2nd ed. 2025):
+  names, functions, comments, error handling, boundaries, classes, smells
+- *Clean Architecture: A Craftsman's Guide to Software Structure and Design* (2017):
+  the dependency rule, boundaries, Humble Object, screaming architecture, details
+- *Agile Software Development: Principles, Patterns, and Practices* (2002): SOLID
+  and the component cohesion/coupling principles
+- *Clean Craftsmanship* (2021): TDD, test doubles, simple design
+- *Functional Design* (2023): applying SOLID to functional code
+- Blog posts at [blog.cleancoder.com](https://blog.cleancoder.com), including "The
+  Clean Architecture", "Screaming Architecture", "The Single Responsibility
+  Principle", "The Cycles of TDD", and "The Transformation Priority Premise"
+
+Where Martin's advice is contested, notably function size and comments in his
+2024–25 [dialogue with John Ousterhout](https://github.com/johnousterhout/aposd-vs-clean-code),
+the skill states the shared ground and tells the agent to use judgment. Read the
+books; this skill is a working summary, not a substitute.
 
 ## What it does
 
-- **New projects:** sizes the architecture to the project, scaffolds the layers
-  (domain → use cases → adapters → frameworks/UI), and builds from the inside out
-  with one composition root.
-- **Existing projects:** audits the code for tangles, proposes a plan for you to
-  approve, then moves the code one feature at a time with tests passing after
-  each step.
-- **Enforcement:** includes a boundary checker that needs no dependencies, plus
-  setup for lint/import rules native to each language.
-
-The core rule: **source dependencies point inward only.** Business rules never
-import UI, database, HTTP, or framework code.
+- **Writing code:** test-first where a test setup exists, domain-driven names,
+  small focused functions, business rules kept free of I/O, and a self-review
+  checklist before handing code back.
+- **Reviewing / cleaning up:** findings cite Martin's smell codes (e.g. *G5
+  Duplication*, *F3 Flag Arguments*) and SOLID principles, ranked by impact, with
+  fixes applied in small, tested steps.
+- **New projects:** sizes the architecture to the project, scaffolds layers that
+  scream the domain, builds inside-out with one composition root.
+- **Restructuring:** audits for tangles, proposes a plan for approval, migrates one
+  slice at a time with tests green.
+- **Enforcement:** a dependency-free boundary checker for TS/JS and Python, plus
+  setup for each language's native tool (dependency-cruiser, import-linter,
+  depguard, ArchUnit, NetArchTest, the Cargo crate graph).
 
 ## Install
 
-Clone the repo into your agent's global skills folder. The folder name should
-match the skill name, `clean-architecture`.
+Clone the repo into your agent's skills folder. The folder name should match the
+skill name, `clean-code`.
 
 | Agent | Global skills folder | Project-level folder |
 | :--- | :--- | :--- |
@@ -39,7 +62,7 @@ Example (Claude Code):
 
 ```bash
 git clone git@github.com:rsegrest/clean-architecture-coding-skill.git \
-  ~/.claude/skills/clean-architecture
+  ~/.claude/skills/clean-code
 ```
 
 Pi can also install straight from the Git repo:
@@ -48,6 +71,10 @@ Pi can also install straight from the Git repo:
 pi install git:github.com/rsegrest/clean-architecture-coding-skill
 ```
 
+> **Upgrading from `clean-architecture`:** the skill was renamed. Rename your
+> install folder (e.g. `mv ~/.claude/skills/clean-architecture ~/.claude/skills/clean-code`)
+> and update any symlinks.
+
 > **Note:** The Hermes Agent and OpenCode paths come from their public
 > documentation and have not been tested with this skill. If a path is wrong,
 > please open an issue.
@@ -55,28 +82,41 @@ pi install git:github.com/rsegrest/clean-architecture-coding-skill
 To share one copy across agents, clone once and symlink:
 
 ```bash
-ln -s ~/.claude/skills/clean-architecture ~/.hermes/skills/clean-architecture
+ln -s ~/.claude/skills/clean-code ~/.hermes/skills/clean-code
 ```
 
 The agent loads the skill automatically when a request matches, for example
-"restructure this app using clean architecture" or "separate the business logic
+"review this for clean code", "this function is too long, clean it up",
+"restructure this app using clean architecture", or "separate the business logic
 from the UI". You can also ask for it by name.
 
 ## Layout
 
 ```text
-SKILL.md                          Core principles, sizing guidance, workflows
+SKILL.md                              Core ideas, judgment guidance, workflows, index
 references/
-├─ typescript-react.md            TS/React/React Native layouts, DI, hooks, enforcement
-├─ python.md                      Python layouts (FastAPI/Django/CLI), Protocol ports, import-linter
-├─ refactoring-playbook.md        Step-by-step plan for restructuring an existing project
-└─ adding-a-language.md           Starting points for Go, Rust, Java/Kotlin, C#, Swift, Dart
+├─ principles/
+│  ├─ clean-code.md                   Names, functions, comments, errors, classes, smells, checklist
+│  ├─ solid-and-components.md         SRP/OCP/LSP/ISP/DIP; REP/CCP/CRP; ADP/SDP/SAP
+│  ├─ clean-architecture.md           Dependency rule, boundaries, Humble Object, main, details
+│  └─ testing.md                      Three laws of TDD, F.I.R.S.T., test doubles, test boundary
+├─ refactoring-playbook.md            Step-by-step plan for restructuring an existing project
+└─ languages/
+   ├─ typescript.md                   Node/Deno/Bun/backends/libraries
+   ├─ react.md                        React / React Native / Next.js add-on to typescript.md
+   ├─ python.md
+   ├─ go.md
+   ├─ java-kotlin.md
+   ├─ csharp.md
+   ├─ rust.md
+   └─ adding-a-language.md            Checklist + quick mappings (Swift, Dart, PHP, Ruby, Elixir)
 scripts/
-└─ check_boundaries.py            Dependency-direction checker (TS/JS + Python)
+└─ check_boundaries.py                Dependency-direction checker (TS/JS + Python)
 ```
 
-Language references use progressive disclosure: the agent reads only the file for
-the language it is working in, so adding languages doesn't slow down the skill.
+The skill uses progressive disclosure: the agent always reads `SKILL.md`, then only
+the principle and language files the task needs. Adding a language doesn't make
+the skill slower or noisier for other languages.
 
 ## Boundary checker
 
@@ -94,12 +134,20 @@ The checker reports:
 - **Warnings:** direct I/O in inner layers (for example `fetch`, `localStorage`,
   `process.env`, `os.environ`).
 
-Exit code `0` means clean, `1` means it found violations.
+Exit code `0` means clean, `1` means it found violations. For Go, Java/Kotlin, C#,
+and Rust, use the native enforcer described in each language reference.
 
 ## Adding a language
 
-Follow `references/adding-a-language.md`, save the result as
-`references/<language>.md`, and add a row to the language table in `SKILL.md`.
+Follow `references/languages/adding-a-language.md`, save the result as
+`references/languages/<language>.md`, and add a row to the language table in
+`SKILL.md`.
+
+## Acknowledgements
+
+The first version of this skill adapted the React layout from
+[falsy/react-with-clean-architecture](https://github.com/falsy/react-with-clean-architecture);
+its monorepo pattern still informs `react.md`.
 
 ## License
 
