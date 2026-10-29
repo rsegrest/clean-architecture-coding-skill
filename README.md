@@ -47,8 +47,8 @@ books; this skill is a working summary, not a substitute.
 
 ## Install
 
-**Protected, multi-harness install (recommended for maintainers).** Use
-[agent-skill-tools](https://github.com/rsegrest/agent-skill-tools): it publishes a
+**Protected, multi-harness install (maintainer setup).** The maintainer uses
+`agent-skill-tools`, a companion toolkit not yet published, which publishes a
 tagged release as a root-owned, read-only copy, lints it against size budgets, and
 links every installed harness (Claude Code, Codex, Pi, Grok Build, Qwen Code,
 Antigravity CLI, Hermes, and anything reading `~/.agents/skills`) to it. See
