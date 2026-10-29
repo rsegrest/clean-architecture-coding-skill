@@ -47,8 +47,20 @@ books; this skill is a working summary, not a substitute.
 
 ## Install
 
-Clone the repo into your agent's skills folder. The folder name should match the
-skill name, `clean-code`.
+**Protected, multi-harness install (recommended for maintainers).** Use
+[agent-skill-tools](https://github.com/rsegrest/agent-skill-tools): it publishes a
+tagged release as a root-owned, read-only copy, lints it against size budgets, and
+links every installed harness (Claude Code, Codex, Pi, Grok Build, Qwen Code,
+Antigravity CLI, Hermes, and anything reading `~/.agents/skills`) to it. See
+[MAINTAINING.md](./MAINTAINING.md).
+
+```bash
+sudo skill-release --set-policy clean-code skill-policy.json   # once
+sudo skill-release . v1.0.0
+```
+
+**Plain install.** Clone the repo into your agent's skills folder. The folder name
+should match the skill name, `clean-code`.
 
 | Agent | Global skills folder | Project-level folder |
 | :--- | :--- | :--- |
@@ -112,6 +124,10 @@ references/
    └─ adding-a-language.md            Checklist + quick mappings (Swift, Dart, PHP, Ruby, Elixir)
 scripts/
 └─ check_boundaries.py                Dependency-direction checker (TS/JS + Python)
+templates/SKILL-FEEDBACK.md           Where agents record lessons instead of editing the skill
+skill-policy.json                     Size budgets and the approved SKILL.md outline
+MAINTAINING.md                        Release and feedback process
+.githooks/pre-commit                  Runs skill-lint on every commit
 ```
 
 The skill uses progressive disclosure: the agent always reads `SKILL.md`, then only
@@ -136,6 +152,13 @@ The checker reports:
 
 Exit code `0` means clean, `1` means it found violations. For Go, Java/Kotlin, C#,
 and Rust, use the native enforcer described in each language reference.
+
+## Contributing and feedback
+
+Agents using this skill are told not to edit it; they record lessons in their
+project's `plan/SKILL-FEEDBACK.md` (template in `templates/`). Changes land through
+reviewed pull requests, must pass `skill-lint` (size budgets and the fixed `SKILL.md`
+outline in `skill-policy.json`), and bump `version:` in `SKILL.md`.
 
 ## Adding a language
 

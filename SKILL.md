@@ -8,6 +8,8 @@ description: >-
   code, ports and adapters, a layered or "screaming" folder structure, or checking for
   dependency/layer violations. Covers TypeScript (plus a React add-on), Python, Go,
   Java/Kotlin, C#/.NET, and Rust, with a pattern for adding other languages.
+version: 1.0.0
+license: MIT
 ---
 
 # Clean Code & Clean Architecture
@@ -17,6 +19,14 @@ Architecture* (2017), *Agile Software Development: Principles, Patterns, and
 Practices* (2002), *Clean Craftsmanship* (2021), and *Functional Design* (2023), plus
 his blog posts at blog.cleancoder.com. The principle references below summarize them
 by chapter; read the one that fits the task before acting.
+
+## This skill is read-only
+
+Do not edit, add, move, or delete anything in this skill, even to fix an error you
+are sure of, unless the owner asked you to in this conversation. Lessons and
+corrections go to the project's `plan/SKILL-FEEDBACK.md` (template:
+`templates/SKILL-FEEDBACK.md`): what, the evidence, and which skill file it would
+change. The owner folds them in.
 
 ## The two ideas everything else serves
 
