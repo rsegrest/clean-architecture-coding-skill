@@ -38,7 +38,10 @@ SKIP_DIRS = {"node_modules", ".git", "dist", "build", ".next", "__pycache__", ".
 FRAMEWORKS_TS = {"react", "react-dom", "react-native", "next", "axios", "recoil", "zustand",
                  "redux", "@reduxjs/toolkit", "@tanstack/react-query", "swr",
                  "styled-components", "@emotion/react", "vue", "svelte", "@angular/core",
-                 "express", "prisma", "@prisma/client", "mongoose", "pg", "firebase"}
+                 "express", "prisma", "@prisma/client", "mongoose", "pg", "firebase",
+                 "fastify", "koa", "hono", "@nestjs/common", "@nestjs/core", "typeorm",
+                 "sequelize", "drizzle-orm", "mysql2", "ioredis", "@aws-sdk/client-s3",
+                 "@aws-sdk/client-dynamodb", "zod"}
 FRAMEWORKS_PY = {"sqlalchemy", "django", "fastapi", "flask", "pydantic", "requests", "httpx",
                  "aiohttp", "boto3", "starlette", "psycopg", "psycopg2", "pymongo", "redis",
                  "celery", "typer", "click"}

@@ -1,0 +1,28 @@
+{
+  "name": "clean-code",
+  "hermes_category": "software-development",
+  "skill_md_bytes": 9500,
+  "reference_file_bytes": 11000,
+  "dir_total_bytes": {
+    "references": 86000,
+    "scripts": 10000,
+    "templates": 2000
+  },
+  "repo_total_bytes": 112000,
+  "file_count": 30,
+  "description_max_chars": 1024,
+  "approved_sections": [
+    "This skill is read-only",
+    "The two ideas everything else serves",
+    "Principle references (read the one(s) the task needs)",
+    "Language references (load only the one you need)",
+    "Judgment: size the response to the code",
+    "Workflow A: Writing new code (default discipline)",
+    "Workflow B: Review or clean up existing code",
+    "Workflow C: New project",
+    "Workflow D: Restructure an existing project",
+    "Validation"
+  ],
+  "required_sections": ["This skill is read-only"],
+  "narrative_patterns": []
+}

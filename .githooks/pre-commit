@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Block any commit that breaks the skill's limits (SKILL.md shape and size, session noise,
+# machine paths, byte budgets), checked by the root-owned agent-skill-tools linter against
+# the stricter of skill-policy.json and /etc/agent-skills/<name>/policy.json.
+# This skill changes only at the owner's direction (MAINTAINING.md). Do not bypass this hook.
+# Activate once per clone:  git config core.hooksPath .githooks
+set -uo pipefail
+REPO=$(git rev-parse --show-toplevel)
+if ! command -v skill-lint >/dev/null; then
+  echo "pre-commit: skill-lint not installed (agent-skill-tools); skipping the skill linter." >&2
+  exit 0
+fi
+if ! skill-lint --skill-dir "$REPO" --tree; then
+  echo "pre-commit: blocked. Fix the problems above, or record the lesson in your project's" >&2
+  echo "plan/SKILL-FEEDBACK.md instead of changing the skill." >&2
+  exit 1
+fi

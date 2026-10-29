@@ -1,6 +1,10 @@
 # Refactoring Playbook: Moving an Existing Project to Clean Architecture
 
 Goal: incremental, always-shippable migration. Tests stay green after every step.
+This applies Martin's guidance that architecture is improved continuously, in small
+steps backed by tests, never by a "grand redesign" (*Clean Code* ch. 1; *Clean
+Architecture* ch. 1). For the target structure, see
+[principles/clean-architecture.md](./principles/clean-architecture.md).
 
 ## 1. Audit (read-only)
 
@@ -14,7 +18,10 @@ Goal: incremental, always-shippable migration. Tests stay green after every step
     into logic.
   - Global singletons (DB clients, API clients) imported everywhere.
 - Note test coverage around the hot spots. If thin, add characterization tests
-  before moving code.
+  before moving code (see [principles/testing.md](./principles/testing.md)).
+- Look for dependency cycles between folders/packages (ADP) and classes serving
+  several actors (SRP); see
+  [principles/solid-and-components.md](./principles/solid-and-components.md).
 
 ## 2. Map and propose (get user sign-off)
 
@@ -22,7 +29,8 @@ Produce a short plan (artifact) containing:
 - Current → target layer for each major module/folder.
 - Entities and use cases discovered.
 - Ports needed (one per external dependency: DB, HTTP API, storage, clock, auth).
-- Chosen scale (see Pragmatism in SKILL.md) and folder layout.
+- Chosen scale (see Judgment in SKILL.md) and a folder layout that screams the
+  domain.
 - Ordered migration slices (one feature or use case per slice), riskiest last.
 
 Do not start moving files until the user approves.
@@ -40,6 +48,9 @@ For each slice (e.g. "board loading"):
 6. **Wire in the composition root** and switch the UI/route to call the use case.
 7. Delete the now-dead direct calls. Run all tests and the build.
 8. Commit with a message naming the slice.
+
+Within a slice, apply Clean Code fixes only to the code being moved (the Boy Scout
+Rule); list other smells for the user rather than fixing them unasked.
 
 Keep old and new paths side by side only during a slice; never leave a slice
 half-migrated across commits.
@@ -63,3 +74,5 @@ prevents regressions while migration is ongoing.
 - Anemic use cases that just forward to a repository while the rules stay in the UI.
 - Leaking ORM/HTTP/framework types through ports.
 - Multiple composition roots or service locators sprinkled through components.
+- Folders named after the framework (`controllers/`, `models/`) instead of the
+  domain.
